@@ -23,7 +23,14 @@ android {
 
         externalNativeBuild {
             cmake {
-                arguments.addAll(listOf("-DMIDICCI_SKIP_TOOLS=ON", "-DCPM_SOURCE_CACHE=$cpmSourceCacheDir"))
+                arguments.addAll(listOf(
+                    "-DMIDICCI_SKIP_TOOLS=ON",
+                    "-DCPM_SOURCE_CACHE=$cpmSourceCacheDir",
+                    "-DANDROID_STL=c++_shared"  // Required for C++23 support
+                ))
+                targets.add("uapmd-app")
+                cppFlags.add("-std=c++23")
+                cppFlags.add("-fexceptions")
             }
         }
     }
