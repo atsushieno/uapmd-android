@@ -15,12 +15,8 @@
             android:name=".MainActivity"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
             android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="unspecified"
             android:exported="true">
-
-            <!-- Tell NativeActivity which native library to load -->
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="uapmd-app" />
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

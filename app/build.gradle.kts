@@ -28,7 +28,7 @@ android {
                     "-DCPM_SOURCE_CACHE=$cpmSourceCacheDir",
                     "-DANDROID_STL=c++_shared"  // Required for C++23 support
                 ))
-                targets.add("uapmd-app")
+                targets.add("main")
                 cppFlags.add("-std=c++23")
                 cppFlags.add("-fexceptions")
             }
