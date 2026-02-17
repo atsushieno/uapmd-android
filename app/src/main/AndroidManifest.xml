@@ -24,6 +24,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <provider android:name="androidx.startup.InitializationProvider"
+            android:authorities="${applicationId}.juce_app_initializer"
+            android:exported="false"
+            tools:node="merge"
+            tools:replace="android:authorities">
+            <meta-data android:name="org.androidaudioplugin.hosting.AudioPluginClientInitializer" android:value="androidx.startup" />
+        </provider>
     </application>
 
+    <attribution android:tag="audioPlayback" android:label="@string/audio_playback_attribution" />
 </manifest>

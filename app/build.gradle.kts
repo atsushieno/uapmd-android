@@ -4,6 +4,9 @@ plugins {
 
 val cpmSourceCacheDir = System.getenv("HOME") + "/.cache/CPM/uapmdandroid"
 
+val aapDir = project.projectDir.parentFile.listFiles {
+    it.name == "external" }.firstOrNull()?.listFiles { it.name == "aap-core" }?.firstOrNull()
+
 android {
     namespace = "dev.atsushieno.uapmd"
     compileSdk {
@@ -24,6 +27,7 @@ android {
         externalNativeBuild {
             cmake {
                 arguments.addAll(listOf(
+                    "-DAAP_DIR=$aapDir",
                     "-DMIDICCI_SKIP_TOOLS=ON",
                     "-DCPM_SOURCE_CACHE=$cpmSourceCacheDir",
                     "-DANDROID_STL=c++_shared"  // Required for C++23 support
@@ -33,6 +37,7 @@ android {
                 cppFlags.add("-fexceptions")
             }
         }
+        ndk.abiFilters.addAll(listOf("arm64-v8a", "x86_64"))
     }
 
     buildTypes {
@@ -62,8 +67,11 @@ android {
 dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
+    implementation(libs.startup.runtime)
     implementation(libs.material)
     implementation(files("../external/SDL3-3.4.0.aar"))
+    implementation(libs.androidaudioplugin)
+    implementation(libs.androidaudioplugin.manager)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
